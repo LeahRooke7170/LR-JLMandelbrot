@@ -80,6 +80,16 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 {
+	VideoMode videO;
 	//Jeremy
-	return { 0,0 };
+	double h = videO.getDesktopMode().height;
+	double w = videO.getDesktopMode().width;
+
+	//[0, width] -> [m_plane_center.x - m_plane_size.x / 2.0, m_plane_size.x]
+	double rx = ((mousePixel.x) / (w)) * (m_plane_size.x - (m_plane_center.x - (m_plane_size.x / 2.0))) + (m_plane_center.x - (m_plane_size.x / 2.0));
+	//[0, height] -> [m_plane_center.y - m_plane_size.y / 2.0, m_plane_size.y]
+	double ry = ((mousePixel.y) / (h)) * (m_plane_size.y - (m_plane_center.y - (m_plane_size.y / 2.0))) + (m_plane_center.y - (m_plane_size.y / 2.0));
+
+
+	return { rx,ry };
 }
