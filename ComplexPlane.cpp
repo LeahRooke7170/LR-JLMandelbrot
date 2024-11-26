@@ -35,12 +35,12 @@ void ComplexPlane::setCenter(Vector2i mousePixel)
 
 void ComplexPlane::setMouseLocation(Vector2i mousePixel)
 {
-	//Jeremy
+	//Leah
 }
 
 void ComplexPlane::loadText(Text& text)
 {
-	//Jeremy
+	//Leah
 }
 
 void ComplexPlane::updateRender()
@@ -57,7 +57,7 @@ int ComplexPlane::countIterations(Vector2f coord)
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
-	//Jeremy
+	//Leah
 }
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
