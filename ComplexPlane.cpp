@@ -1,6 +1,6 @@
 #include"ComplexPlane.h"
 
-//public functions
+///public functions
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 {
 	m_pixel_size = { pixelWidth, pixelHeight };
@@ -48,7 +48,7 @@ void ComplexPlane::updateRender()
 
 }
 
-//private functions
+///private functions
 int ComplexPlane::countIterations(Vector2f coord)
 {
 	return 0;
