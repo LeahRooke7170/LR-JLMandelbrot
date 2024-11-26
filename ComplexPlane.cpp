@@ -4,7 +4,7 @@
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 {
 	m_pixel_size = { pixelWidth, pixelHeight };
-	m_aspectRatio = float(pixelHeight) / float(pixelWidth);
+	m_aspectRatio = double(pixelHeight) / double(pixelWidth);
 	m_plane_center = { 0,0 };
 	m_plane_size = { BASE_WIDTH, BASE_HEIGHT * m_aspectRatio };
 	m_zoomCount = 0;
@@ -70,7 +70,7 @@ int ComplexPlane::countIterations(Vector2f coord)
 		z = z * z + c;
 		iterations++;
 	}
-	return 0;
+	return iterations;
 }
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
