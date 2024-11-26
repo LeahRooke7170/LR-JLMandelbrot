@@ -62,7 +62,14 @@ void ComplexPlane::updateRender()
 ///private functions
 int ComplexPlane::countIterations(Vector2f coord)
 {
-	//Jeremy
+	complex<double> c = complex<double>(coord.x, coord.y);
+	complex<double> z = c;
+	int iterations = 0;
+	while (abs(z) < 2.0 && iterations < MAX_ITER)
+	{
+		z = z * z + c;
+		i++;
+	}
 	return 0;
 }
 
