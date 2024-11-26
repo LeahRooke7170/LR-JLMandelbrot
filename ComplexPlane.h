@@ -2,7 +2,12 @@
 #define COMPLEXPLANE_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
+#include <complex>
+#include <vector>
+#include <sstream>
+
 
 using namespace sf;
 using namespace std;
