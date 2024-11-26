@@ -20,46 +20,48 @@ void ComplexPlane::draw(RenderTarget& target, RenderStates& states) const
 
 void ComplexPlane::zoomIn()
 {
-
+	//Leah 
 }
 
 void ComplexPlane::zoomOut()
 {
-
+	//Leah
 }
 
 void ComplexPlane::setCenter(Vector2i mousePixel)
 {
-
+	//Leah
 }
 
 void ComplexPlane::setMouseLocation(Vector2i mousePixel)
 {
-
+	//Jeremy
 }
 
 void ComplexPlane::loadText(Text& text)
 {
-
+	//Jeremy
 }
 
 void ComplexPlane::updateRender()
 {
-
+	//Jeremy
 }
 
 ///private functions
 int ComplexPlane::countIterations(Vector2f coord)
 {
+	//Jeremy
 	return 0;
 }
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
-
+	//Jeremy
 }
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 {
+	//Jeremy
 	return { 0,0 };
 }
