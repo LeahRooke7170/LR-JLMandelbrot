@@ -68,7 +68,7 @@ int ComplexPlane::countIterations(Vector2f coord)
 	while (abs(z) < 2.0 && iterations < MAX_ITER)
 	{
 		z = z * z + c;
-		i++;
+		iterations++;
 	}
 	return 0;
 }
