@@ -21,8 +21,8 @@ void ComplexPlane::draw(RenderTarget& target, RenderStates& states) const
 void ComplexPlane::zoomIn()
 {
 	m_zoomCount++;
-	double x = BASE_WIDTH * (pow(BASE_ZOOM, m_zoomCount));
-	double y = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM, m_zoomCount));
+	float x = BASE_WIDTH * (pow(BASE_ZOOM, m_zoomCount));
+	float y = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM, m_zoomCount));
 	m_plane_size = { x,y };
 	m_state = CALCULATING;
 }
@@ -30,8 +30,8 @@ void ComplexPlane::zoomIn()
 void ComplexPlane::zoomOut()
 {
 	m_zoomCount--;
-	double x = BASE_WIDTH * (pow(BASE_ZOOM, m_zoomCount));
-	double y = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM, m_zoomCount));
+	float x = BASE_WIDTH * (pow(BASE_ZOOM, m_zoomCount));
+	float y = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM, m_zoomCount));
 	m_plane_size = { x,y };
 	m_state = CALCULATING;
 }
@@ -76,6 +76,19 @@ int ComplexPlane::countIterations(Vector2f coord)
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
 	//Leah
+	if (count == MAX_ITER)
+	{
+		r = 0;
+		g = 0;
+		b = 0;
+	}
+	else
+	{
+		//this is just to test if the pattern is being correctly colored. nothgin fancy yet.
+		r = 255;
+		g = 255;
+		b = 255;
+	}
 }
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
