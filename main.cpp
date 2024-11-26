@@ -2,6 +2,5 @@
 
 int main()
 {
-	cout << "when the project compiles :D" << endl;
-	cout << ">:)" << endl;
+	cout << "i eat wood and magnets" << endl;
 }
