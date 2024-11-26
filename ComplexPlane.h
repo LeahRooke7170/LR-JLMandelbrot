@@ -38,5 +38,4 @@ private:
 	void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b);
 	Vector2f mapPixelToCoords(Vector2i mousePixel);
 };
-
 #endif 
