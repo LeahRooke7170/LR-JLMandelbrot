@@ -101,10 +101,11 @@ void ComplexPlane::updateRender()
 				m_vArray[j + i * pixelWidth].position = { float(j), float(i) };
 				coord = mapPixelToCoords({ j,i });
 				iterCount = countIterations(coord);
+				//cout << iterCount << endl;
 				Uint8 r, g, b;
 				iterationsToRGB(iterCount, r, g, b);
 				m_vArray[j + i * pixelWidth].color = { r,g,b };
-				cout << m_vArray[j + i * pixelWidth].position.x << " " << m_vArray[j + i * pixelWidth].position.y << endl;
+				//cout << m_vArray[j + i * pixelWidth].position.x << " " << m_vArray[j + i * pixelWidth].position.y << endl;
 			}
 			m_state = DISPLAYING;
 		}
@@ -176,13 +177,20 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 {
 	VideoMode videO;
-	double h = videO.getDesktopMode().height;
-	double w = videO.getDesktopMode().width;
+	float h = videO.getDesktopMode().height;
+	float w = videO.getDesktopMode().width;
 
+	//[a, b] for the x [0, 1920]
+	//[a, b] for the y [0, 1080]
+
+	Vector2f a = { 0, 0 }; 
+	Vector2f b = { w, h };
+	//Vector2f c = { (m_plane_center.x - (m_plane_size.x / 2.0)),(m_plane_center.y - (m_plane_size.y / 2.0)) };
+	//Vector2f d = { (m_plane_center.x + (m_plane_size.x / 2.0)),(m_plane_center.y + (m_plane_size.y / 2.0)) };
 	//[0, width] -> [m_plane_center.x - m_plane_size.x / 2.0, m_plane_size.x]
-	float rx = ((mousePixel.x) / (m_pixel_size.x)) * (m_plane_size.x - (m_plane_center.x - (m_plane_size.x / 2.0))) + (m_plane_center.x - (m_plane_size.x / 2.0));
+	float rx = ((mousePixel.x - a.x) / (b.x - a.x)) * ((m_plane_center.x + (m_plane_size.x / 2.0)) - (m_plane_center.x - (m_plane_size.x / 2.0)) + (m_plane_center.x - (m_plane_size.x / 2.0)));
 	//[0, height] -> [m_plane_center.y - m_plane_size.y / 2.0, m_plane_size.y]
-	float ry = ((mousePixel.y) / (m_pixel_size.y)) * (m_plane_size.y - (m_plane_center.y - (m_plane_size.y / 2.0))) + (m_plane_center.y - (m_plane_size.y / 2.0));
-
+	float ry = ((mousePixel.y - a.y) / (b.y - a.y)) * ((m_plane_center.y + (m_plane_size.y / 2.0)) - (m_plane_center.y - (m_plane_size.y / 2.0)) + (m_plane_center.y - (m_plane_size.y / 2.0)));
+	
 	return { rx,ry };
 }
