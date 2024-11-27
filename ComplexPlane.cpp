@@ -64,9 +64,9 @@ void ComplexPlane::loadText(Text& text)
 
 void ComplexPlane::updateRender()
 {
-	VideoMode vIdeo;
-	int x = vIdeo.getDesktopMode().width;
-	int y = vIdeo.getDesktopMode().height;
+	VideoMode video;
+	int x = video.getDesktopMode().width;
+	int y = video.getDesktopMode().height;
 	int iterationCount = 0;
 	unsigned char r = 0;
 	unsigned char g = 0;
