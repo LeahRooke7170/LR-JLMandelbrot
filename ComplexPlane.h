@@ -8,7 +8,6 @@
 #include <vector>
 #include <sstream>
 
-
 using namespace sf;
 using namespace std;
 

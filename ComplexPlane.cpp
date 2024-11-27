@@ -57,6 +57,9 @@ void ComplexPlane::loadText(Text& text)
 		<< "Right click to zoom out";
 	Font font;
 	font.loadFromFile("ComicSansMS.ttf");
+	text.setString(os.str());
+	text.setFont(font);
+	text.setFillColor(Color::Green);
 }
 
 void ComplexPlane::updateRender()
