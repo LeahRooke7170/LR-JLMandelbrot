@@ -3,9 +3,6 @@
 
 int main()
 {
-	cout << "when the project compiles :D" << endl;
-	cout << ">:)" << endl;
-
 	VideoMode video(1920,1080);
 	int screenH = video.getDesktopMode().height;
 	int screenW = video.getDesktopMode().width;
@@ -50,21 +47,14 @@ int main()
 				cPlane.setMouseLocation(Vector2i(event.mouseButton.x, event.mouseButton.y));
 			}
 		}
-
-		///YUPDATE
-
 		thread t1(&ComplexPlane::updateRender, &cPlane);
-		//cPlane.updateRender();
 		t1.join();
 		cPlane.loadText(text);
 
-		///DRAWER
 		window.clear();
 		cPlane.draw(window, state);
 		window.draw(text);
 		window.display();
-
-
 	}
 	return 0;
 }

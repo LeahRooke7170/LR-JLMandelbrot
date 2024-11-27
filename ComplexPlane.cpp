@@ -162,5 +162,4 @@ Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 	float ry = ((mousePixel.y - h) / (a.y - h)) * (d2 - c2) + c2;
 
 	return {rx,ry};
-
 }
