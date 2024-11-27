@@ -40,12 +40,15 @@ void ComplexPlane::setCenter(Vector2i mousePixel)
 {
 	//Jeremy
 	//this one corresponds with mapPixelToCoords
+	m_state = CALCULATING;
+	m_plane_center = mapPixelToCoords(mousePixel);
 }
 
 void ComplexPlane::setMouseLocation(Vector2i mousePixel)
 {
 	//Jeremy
 	//this one also corresponds with mapPixelToCoords
+	m_mouseLocation = mapPixelToCoords(mousePixel);
 }
 
 void ComplexPlane::loadText(Text& text)
@@ -62,7 +65,32 @@ void ComplexPlane::loadText(Text& text)
 
 void ComplexPlane::updateRender()
 {
+	VideoMode vIdeo;
+	int x = vIdeo.getDesktopMode().width;
+	int y = vIdeo.getDesktopMode().height;
+	int interationCount = 0;
+	unsigned char r = 0;
+	unsigned char g = 0;
+	unsigned char b = 0;
+
+
+
 	//Jeremy
+	if (m_state == CALCULATING)
+	{
+		for (int i = 0; i < y; i++)
+		{
+			for (int j = 0; i < x; j++)
+			{
+				m_vArray[j + i * x].position = { float(j), float(i) };
+				interationCount += countIterations(mapPixelToCoords(Vector2i(i,j)));
+				iterationsToRGB(interationCount, r, g, b);
+				m_vArray[j + i * x].color = { r,g,b };
+			}
+
+		}
+		m_state = DISPLAYING;
+	}
 }
 
 ///private functions
@@ -103,8 +131,10 @@ Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 	double w = videO.getDesktopMode().width;
 
 	//[0, width] -> [m_plane_center.x - m_plane_size.x / 2.0, m_plane_size.x]
-	double rx = ((mousePixel.x) / (w)) * (m_plane_size.x - (m_plane_center.x - (m_plane_size.x / 2.0))) + (m_plane_center.x - (m_plane_size.x / 2.0));
+	float rx = ((mousePixel.x) / (w)) * (m_plane_size.x - (m_plane_center.x - (m_plane_size.x / 2.0))) + (m_plane_center.x - (m_plane_size.x / 2.0));
 	//[0, height] -> [m_plane_center.y - m_plane_size.y / 2.0, m_plane_size.y]
 	double ry = ((mousePixel.y) / (h)) * (m_plane_size.y - (m_plane_center.y - (m_plane_size.y / 2.0))) + (m_plane_center.y - (m_plane_size.y / 2.0));
+
+
 	return { rx,ry };
 }
