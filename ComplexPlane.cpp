@@ -50,8 +50,14 @@ void ComplexPlane::setMouseLocation(Vector2i mousePixel)
 
 void ComplexPlane::loadText(Text& text)
 {
-	//Leah
 	stringstream os; 
+	os << "Mandelbrot Set!!!!\n"
+		<< "Center: (" << m_plane_center.x << ", " << m_plane_center.y << ")\n"
+		<< "Cursor: (" << m_mouseLocation.x << ", " << m_mouseLocation.y << ")\n"
+		<< "Left-click to zoom in\n"
+		<< "Right click to zoom out";
+	Font font;
+	font.loadFromFile("ComicSansMS.ttf");
 }
 
 void ComplexPlane::updateRender()
@@ -75,7 +81,6 @@ int ComplexPlane::countIterations(Vector2f coord)
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
-	//Leah
 	if (count == MAX_ITER)
 	{
 		r = 0;
@@ -94,7 +99,6 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 {
 	VideoMode videO;
-	//Jeremy
 	double h = videO.getDesktopMode().height;
 	double w = videO.getDesktopMode().width;
 
@@ -102,7 +106,5 @@ Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 	double rx = ((mousePixel.x) / (w)) * (m_plane_size.x - (m_plane_center.x - (m_plane_size.x / 2.0))) + (m_plane_center.x - (m_plane_size.x / 2.0));
 	//[0, height] -> [m_plane_center.y - m_plane_size.y / 2.0, m_plane_size.y]
 	double ry = ((mousePixel.y) / (h)) * (m_plane_size.y - (m_plane_center.y - (m_plane_size.y / 2.0))) + (m_plane_center.y - (m_plane_size.y / 2.0));
-
-
 	return { rx,ry };
 }
