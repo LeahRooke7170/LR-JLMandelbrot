@@ -64,7 +64,7 @@ void ComplexPlane::loadText(Text& text)
 
 void ComplexPlane::updateRender()
 {
-	VideoMode video;
+	/*VideoMode video;
 	int x = video.getDesktopMode().width;
 	int y = video.getDesktopMode().height;
 	int iterationCount = 0;
@@ -79,21 +79,43 @@ void ComplexPlane::updateRender()
 			for (int j = 0; j < m_pixel_size.x; j++)
 			{
 				m_vArray[j + i * m_pixel_size.x].position = { (float)j, (float)i };
-				iterationCount += countIterations(mapPixelToCoords(Vector2i(i,j)));
+				iterationCount = countIterations(mapPixelToCoords(Vector2i(i,j)));
 				iterationsToRGB(iterationCount, r, g, b);
 				m_vArray[j + i * m_pixel_size.x].color = { r,g,b };
 			}
-
 		}
-	
 	}
-	m_state = DISPLAYING;
+	m_state = DISPLAYING;*/
+
+	int pixelHeight = m_pixel_size.y;
+	int pixelWidth = m_pixel_size.x;
+	int iterCount = 0;
+	Vector2f coord;
+
+	if (m_state == CALCULATING)
+	{
+		for (int i = 0; i < pixelHeight; i++)
+		{
+			for (int j = 0; j < pixelWidth; j++)
+			{
+				m_vArray[j + i * pixelWidth].position = { float(j), float(i) };
+				coord = mapPixelToCoords({ j,i });
+				iterCount = countIterations(coord);
+				Uint8 r, g, b;
+				iterationsToRGB(iterCount, r, g, b);
+				m_vArray[j + i * pixelWidth].color = { r,g,b };
+				cout << m_vArray[j + i * pixelWidth].position.x << " " << m_vArray[j + i * pixelWidth].position.y << endl;
+			}
+			m_state = DISPLAYING;
+		}
+	}
 }
 
 ///private functions
 int ComplexPlane::countIterations(Vector2f coord)
 {
-	complex<double> c = complex<double>(coord.x, coord.y);
+	/*complex<double> c = complex<double>(coord.x, coord.y);
+	cout << c.real() << " " << c.imag() << endl;
 	complex<double> z = c;
 	int iterations = 0;
 	while (abs(z) < 2.0 && iterations < MAX_ITER)
@@ -101,6 +123,12 @@ int ComplexPlane::countIterations(Vector2f coord)
 		z = z * z + c;
 		iterations++;
 	}
+	cout << iterations << endl;
+	return iterations;*/
+	complex<double> c = complex<double>(coord.x, coord.y);
+	int iterations = 0;
+	for (complex<double> z; abs(z) <= 2 && iterations < MAX_ITER; ++iterations)
+		z = z * z + c;
 	return iterations;
 }
 
@@ -136,6 +164,12 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 		r = 200;
 		g = 0;
 		b = MAX_ITER;
+	}
+	if (count == 0)
+	{
+		r = 255;
+		g = 0;
+		b = 0;
 	}
 }
 

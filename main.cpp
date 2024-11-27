@@ -6,14 +6,14 @@ int main()
 	cout << "when the project compiles :D" << endl;
 	cout << ">:)" << endl;
 
-	VideoMode video;
-	int screenH = video.getDesktopMode().height;
-	int screenW = video.getDesktopMode().width;
+	VideoMode video(960,540);
+	//int screenH = video.getDesktopMode().height;
+	//int screenW = video.getDesktopMode().width;
 
-	RenderWindow window(VideoMode(screenW, screenH), "opened");
+	RenderWindow window(video, "Mandelbrot set");
 	CircleShape cir(100.f);
 	cir.setFillColor(sf::Color::Blue);
-	ComplexPlane cPlane(screenW, screenH);
+	ComplexPlane cPlane(960, 520);
 	RenderStates state;
 
 
