@@ -13,7 +13,7 @@ int main()
 	RenderWindow window(VideoMode(screenW, screenH), "opened");
 	CircleShape cir(100.f);
 	cir.setFillColor(sf::Color::Blue);
-	///ComplexPlane cPlane(screenW, screenH);
+	ComplexPlane cPlane(screenW, screenH);
 
 
 	while (window.isOpen())
@@ -41,12 +41,12 @@ int main()
 
 		///YUPDATE
 
-		//jeremy.updateRender
+		cPlane.updateRender();
 		//jeremy.loadText (WHEN DONE)
 
 		///DRAWER
 		window.clear();
-		//window.draw(jeremy);
+		//cPlane.draw(window);
 		//window.draw(TEXTS);
 		window.display();
 
