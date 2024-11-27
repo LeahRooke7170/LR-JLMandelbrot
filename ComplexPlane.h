@@ -22,7 +22,7 @@ class ComplexPlane : public sf::Drawable
 {
 public:
 	ComplexPlane(int pixelWidth, int pixelHeight);
-	void draw(RenderTarget& target, RenderStates& states) const override;
+	void draw(RenderTarget& target, RenderStates states) const override;
 	void zoomIn();
 	void zoomOut();
 	void setCenter(Vector2i mousePixel);

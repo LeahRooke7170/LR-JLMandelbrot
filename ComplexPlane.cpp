@@ -13,7 +13,7 @@ ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
 	m_vArray.resize(pixelWidth * pixelHeight);
 }
 
-void ComplexPlane::draw(RenderTarget& target, RenderStates& states) const
+void ComplexPlane::draw(RenderTarget& target, RenderStates states) const
 {
 	target.draw(m_vArray);
 }
