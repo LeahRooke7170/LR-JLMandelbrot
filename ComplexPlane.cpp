@@ -74,33 +74,20 @@ void ComplexPlane::updateRender()
 
 	if (m_state == CALCULATING)
 	{
-		for (int i = 0; i < y; i++)
+		for (int i = 0; i < m_pixel_size.y; i++)
 		{
-			for (int j = 0; j < x; j++)
+			for (int j = 0; j < m_pixel_size.x; j++)
 			{
-				m_vArray[j + i * x].position = { float(j), float(i) };
-				iterationCount += countIterations(mapPixelToCoords(Vector2i(i,j)));
-				iterationsToRGB(iterationCount, r, g, b);
-				m_vArray[j + i * x].color = { r,g,b };
+				m_vArray[j + i * m_pixel_size.x].position = { (float)j, (float)i };
+				interationCount += countIterations(mapPixelToCoords(Vector2i(i,j)));
+				iterationsToRGB(interationCount, r, g, b);
+				m_vArray[j + i * m_pixel_size.x].color = { r,g,b };
 			}
 
 		}
-		m_state = DISPLAYING;
+	
 	}
-
-	/*int pixelHeight = m_pixel_size.y;
-	int pixelWidth = m_pixel_size.x;
-
-	if (m_state == CALCULATING)
-	{
-		for (int i = 0; i < pixelHeight; i++)
-		{
-			for (int j = 0; j < pixelWidth; j++)
-			{
-				m_vArray[j + i * pixelWidth].position = { float(j), float(i) };
-			}
-		}
-	}*/
+	m_state = DISPLAYING;
 }
 
 ///private functions
@@ -128,9 +115,9 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 	else
 	{
 		//this is just to test if the pattern is being correctly colored. nothgin fancy yet.
-		r = 255;
-		g = 255;
-		b = 255;
+		r = 0;
+		g = 100;
+		b = 100;
 	}
 }
 
