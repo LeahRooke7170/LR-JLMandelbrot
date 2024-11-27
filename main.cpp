@@ -6,14 +6,14 @@ int main()
 	cout << "when the project compiles :D" << endl;
 	cout << ">:)" << endl;
 
-	VideoMode video(1920, 1080);
+	VideoMode video(500, 400);
 	int screenH = video.getDesktopMode().height;
 	int screenW = video.getDesktopMode().width;
 
 	RenderWindow window(video, "Mandelbrot set");
 	CircleShape cir(100.f);
 	cir.setFillColor(sf::Color::Blue);
-	ComplexPlane cPlane(screenW, screenH);
+	ComplexPlane cPlane(500, 400);
 	RenderStates state;
 
 
@@ -29,11 +29,13 @@ int main()
 			if (event.mouseButton.button == Mouse::Left)
 			{
 				cout << "LEFT CLICK" << endl;
+				cPlane.setCenter({event.mouseButton.x, event.mouseButton.y });
 				cPlane.zoomIn();
 			}
 			if (event.mouseButton.button == Mouse::Right)
 			{
 				cout << "!(LEFT CLICK)" << endl;
+				cPlane.setCenter({event.mouseButton.x, event.mouseButton.y});
 				cPlane.zoomOut();
 			}
 			if (event.MouseMoved)

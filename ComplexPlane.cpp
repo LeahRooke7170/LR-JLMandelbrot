@@ -191,20 +191,19 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 {
-	VideoMode videO;
-	float h = videO.getDesktopMode().height;
-	float w = videO.getDesktopMode().width;
-
-	//[a, b] for the x [0, 1920]
-	//[a, b] for the y [0, 1080]
-
-	Vector2f a = { 0, 0 }; 
+	float h = m_pixel_size.y;
+	float w = m_pixel_size.x;
+	Vector2f a = { 0, 0}; 
 	Vector2f b = { w, h };
-	//Vector2f c = { (m_plane_center.x - (m_plane_size.x / 2.0)),(m_plane_center.y - (m_plane_size.y / 2.0)) };
-	//Vector2f d = { (m_plane_center.x + (m_plane_size.x / 2.0)),(m_plane_center.y + (m_plane_size.y / 2.0)) };
+	float c1 = m_plane_center.x - m_plane_size.x / 2.0;
+	float d1 = m_plane_center.x + m_plane_size.x / 2.0;
+	float c2 = m_plane_center.y - m_plane_size.y / 2.0;
+	float d2 = m_plane_center.y + m_plane_size.y / 2.0;
 	//[0, width] -> [m_plane_center.x - m_plane_size.x / 2.0, m_plane_size.x]
-	float rx = ((mousePixel.x - 0) / float((m_pixel_size.x - 0))) * ((m_plane_center.x + (m_plane_size.x / 2.0)) - (m_plane_center.x - (m_plane_size.x / 2.0)) + (m_plane_center.x - (m_plane_size.x / 2.0)));
+	float rx = ((mousePixel.x - a.x) / (w - a.x)) * (d1 - c1) + c1;
 	//[0, height] -> [m_plane_center.y - m_plane_size.y / 2.0, m_plane_size.y]
-	float ry = ((mousePixel.y - m_pixel_size.y) / float((0 - m_pixel_size.y))) * ((m_plane_center.y + (m_plane_size.y / 2.0)) - (m_plane_center.y - (m_plane_size.y / 2.0)) + (m_plane_center.y - (m_plane_size.y / 2.0)));
-	return { rx,ry };
+	float ry = ((mousePixel.y - h) / (a.y - h)) * (d2 - c2) + c2;
+
+	return {rx,ry};
+
 }
