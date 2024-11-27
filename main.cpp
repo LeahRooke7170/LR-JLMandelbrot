@@ -33,11 +33,21 @@ int main()
 			{
 				cout << "!(LEFT CLICK)" << endl;
 			}
+			if (event.MouseMoved)
+			{
+				cout << "moved" << endl;
+			}
 		}
 
+		///YUPDATE
 
+		//jeremy.updateRender
+		//jeremy.loadText (WHEN DONE)
+
+		///DRAWER
 		window.clear();
-	
+		//window.draw(jeremy);
+		//window.draw(TEXTS);
 		window.display();
 
 
