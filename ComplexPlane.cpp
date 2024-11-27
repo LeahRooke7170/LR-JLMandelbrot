@@ -73,9 +73,6 @@ void ComplexPlane::updateRender()
 	unsigned char g = 0;
 	unsigned char b = 0;
 
-
-
-	//Jeremy
 	if (m_state == CALCULATING)
 	{
 		for (int i = 0; i < y; i++)
@@ -133,8 +130,7 @@ Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 	//[0, width] -> [m_plane_center.x - m_plane_size.x / 2.0, m_plane_size.x]
 	float rx = ((mousePixel.x) / (w)) * (m_plane_size.x - (m_plane_center.x - (m_plane_size.x / 2.0))) + (m_plane_center.x - (m_plane_size.x / 2.0));
 	//[0, height] -> [m_plane_center.y - m_plane_size.y / 2.0, m_plane_size.y]
-	double ry = ((mousePixel.y) / (h)) * (m_plane_size.y - (m_plane_center.y - (m_plane_size.y / 2.0))) + (m_plane_center.y - (m_plane_size.y / 2.0));
-
+	float ry = ((mousePixel.y) / (h)) * (m_plane_size.y - (m_plane_center.y - (m_plane_size.y / 2.0))) + (m_plane_center.y - (m_plane_size.y / 2.0));
 
 	return { rx,ry };
 }
