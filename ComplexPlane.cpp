@@ -64,10 +64,10 @@ void ComplexPlane::loadText(Text& text)
 
 void ComplexPlane::updateRender()
 {
-	VideoMode vIdeo;
-	int x = vIdeo.getDesktopMode().width;
-	int y = vIdeo.getDesktopMode().height;
-	int interationCount = 0;
+	VideoMode video;
+	int x = video.getDesktopMode().width;
+	int y = video.getDesktopMode().height;
+	int iterationCount = 0;
 	unsigned char r = 0;
 	unsigned char g = 0;
 	unsigned char b = 0;
@@ -76,17 +76,31 @@ void ComplexPlane::updateRender()
 	{
 		for (int i = 0; i < y; i++)
 		{
-			for (int j = 0; i < x; j++)
+			for (int j = 0; j < x; j++)
 			{
 				m_vArray[j + i * x].position = { float(j), float(i) };
-				interationCount += countIterations(mapPixelToCoords(Vector2i(i,j)));
-				iterationsToRGB(interationCount, r, g, b);
+				iterationCount += countIterations(mapPixelToCoords(Vector2i(i,j)));
+				iterationsToRGB(iterationCount, r, g, b);
 				m_vArray[j + i * x].color = { r,g,b };
 			}
 
 		}
 		m_state = DISPLAYING;
 	}
+
+	/*int pixelHeight = m_pixel_size.y;
+	int pixelWidth = m_pixel_size.x;
+
+	if (m_state == CALCULATING)
+	{
+		for (int i = 0; i < pixelHeight; i++)
+		{
+			for (int j = 0; j < pixelWidth; j++)
+			{
+				m_vArray[j + i * pixelWidth].position = { float(j), float(i) };
+			}
+		}
+	}*/
 }
 
 ///private functions
