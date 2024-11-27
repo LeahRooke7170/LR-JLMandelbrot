@@ -104,7 +104,6 @@ void ComplexPlane::updateRender()
 				Uint8 r, g, b;
 				iterationsToRGB(iterCount, r, g, b);
 				m_vArray[j + i * pixelWidth].color = { r,g,b };
-				
 			}
 			m_state = DISPLAYING;
 		}
@@ -187,13 +186,8 @@ Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 	//Vector2f c = { (m_plane_center.x - (m_plane_size.x / 2.0)),(m_plane_center.y - (m_plane_size.y / 2.0)) };
 	//Vector2f d = { (m_plane_center.x + (m_plane_size.x / 2.0)),(m_plane_center.y + (m_plane_size.y / 2.0)) };
 	//[0, width] -> [m_plane_center.x - m_plane_size.x / 2.0, m_plane_size.x]
-	float rx = ((mousePixel.x - a.x) / (b.x - a.x)) * ((m_plane_center.x + (m_plane_size.x / 2.0)) - (m_plane_center.x - (m_plane_size.x / 2.0)) + (m_plane_center.x - (m_plane_size.x / 2.0)));
+	float rx = ((mousePixel.x) / (m_pixel_size.x)) * (m_plane_size.x - (m_plane_center.x - (m_plane_size.x / 2.0))) + (m_plane_center.x - (m_plane_size.x / 2.0));
 	//[0, height] -> [m_plane_center.y - m_plane_size.y / 2.0, m_plane_size.y]
-
 	float ry = ((mousePixel.y - a.y) / (b.y - a.y)) * ((m_plane_center.y + (m_plane_size.y / 2.0)) - (m_plane_center.y - (m_plane_size.y / 2.0)) + (m_plane_center.y - (m_plane_size.y / 2.0)));
-
-	
-	//comment
-
 	return { rx,ry };
 }
