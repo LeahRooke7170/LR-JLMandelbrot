@@ -38,55 +38,28 @@ void ComplexPlane::zoomOut()
 
 void ComplexPlane::setCenter(Vector2i mousePixel)
 {
+	m_plane_center = ComplexPlane::mapPixelToCoords(mousePixel);
 	m_state = CALCULATING;
-	m_plane_center = mapPixelToCoords(mousePixel);
 }
 
 void ComplexPlane::setMouseLocation(Vector2i mousePixel)
 {
-	m_mouseLocation = mapPixelToCoords(mousePixel);
+	m_mouseLocation = ComplexPlane::mapPixelToCoords(mousePixel);
 }
 
 void ComplexPlane::loadText(Text& text)
 {
-	stringstream os; 
-	os << "Mandelbrot Set!!!!\n"
+	stringstream ss; 
+	ss << "Mandelbrot Set!!!!\n"
 		<< "Center: (" << m_plane_center.x << ", " << m_plane_center.y << ")\n"
 		<< "Cursor: (" << m_mouseLocation.x << ", " << m_mouseLocation.y << ")\n"
 		<< "Left-click to zoom in\n"
 		<< "Right click to zoom out";
-	Font font;
-	font.loadFromFile("ComicSansMS.ttf");
-	text.setString(os.str());
-	text.setFont(font);
-	text.setFillColor(Color::Green);
+	text.setString(ss.str());
 }
 
 void ComplexPlane::updateRender()
 {
-	/*VideoMode video;
-	int x = video.getDesktopMode().width;
-	int y = video.getDesktopMode().height;
-	int iterationCount = 0;
-	unsigned char r = 0;
-	unsigned char g = 0;
-	unsigned char b = 0;
-
-	if (m_state == CALCULATING)
-	{
-		for (int i = 0; i < m_pixel_size.y; i++)
-		{
-			for (int j = 0; j < m_pixel_size.x; j++)
-			{
-				m_vArray[j + i * m_pixel_size.x].position = { (float)j, (float)i };
-				iterationCount = countIterations(mapPixelToCoords(Vector2i(i,j)));
-				iterationsToRGB(iterationCount, r, g, b);
-				m_vArray[j + i * m_pixel_size.x].color = { r,g,b };
-			}
-		}
-	}
-	m_state = DISPLAYING;*/
-
 	int pixelHeight = m_pixel_size.y;
 	int pixelWidth = m_pixel_size.x;
 	int iterCount = 0;
@@ -99,10 +72,10 @@ void ComplexPlane::updateRender()
 			for (int j = 0; j < pixelWidth; j++)
 			{
 				m_vArray[j + i * pixelWidth].position = { float(j), float(i) };
-				coord = mapPixelToCoords({ j,i });
-				iterCount = countIterations(coord);
+				coord = ComplexPlane::mapPixelToCoords({ j,i });
+				iterCount = ComplexPlane::countIterations(coord);
 				Uint8 r, g, b;
-				iterationsToRGB(iterCount, r, g, b);
+				ComplexPlane::iterationsToRGB(iterCount, r, g, b);
 				m_vArray[j + i * pixelWidth].color = Color(r,g,b);
 			}
 			m_state = DISPLAYING;
@@ -113,17 +86,6 @@ void ComplexPlane::updateRender()
 ///private functions
 int ComplexPlane::countIterations(Vector2f coord)
 {
-	/*complex<double> c = complex<double>(coord.x, coord.y);
-	cout << c.real() << " " << c.imag() << endl;
-	complex<double> z = c;
-	int iterations = 0;
-	while (abs(z) < 2.0 && iterations < MAX_ITER)
-	{
-		z = z * z + c;
-		iterations++;
-	}
-	cout << iterations << endl;
-	return iterations;*/
 	complex<float> c = complex<float>(coord.x, coord.y);
 	int iterations = 0;
 	for (complex<float> z; abs(z) <= 2 && iterations < MAX_ITER; ++iterations)
@@ -133,59 +95,54 @@ int ComplexPlane::countIterations(Vector2f coord)
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
+	float delim = MAX_ITER / 6;
 	if (count == MAX_ITER)
 	{
 		r = 0;
 		g = 0;
 		b = 0;
 	}
-	else if (count <= 8)
+	if (count < delim * 6 - 1)
 	{
-		r = 256;
+		//red
+		r = 255;
 		g = 0;
-		b = 256;
-	}
-	else if (count <= 16)
-	{
-		r = 219;
-		g = 36;
-		b = 219;
-	}
-	else if (count <= 24)
-	{
-		r = 182;
-		g = 73;
-		b = 182;
-	}
-	else if (count <= 32)
-	{
-		r = 146;
-		g = 109;
-		b = 146;
-	}
-	else if (count <= 40)
-	{
-		r = 109;
-		g = 146;
-		b = 109;
-	}
-	else if (count <= 48)
-	{
-		r = 73;
-		g = 182;
-		b = 73;
-	}
-	else if (count <= 56)
-	{
-		r = 36;
-		g = 219;
-		b = 36;
-	}
-	else
-	{
-		r = 0;
-		g = 256;
 		b = 0;
+	}
+	if (count < delim * 5)
+	{
+		//orange
+		r = 255;
+		g = 128;
+		b = 0;
+	}
+	if (count < delim * 4)
+	{
+		//yellow
+		r = 255;
+		g = 255;
+		b = 0;
+	}
+	if (count < delim * 3)
+	{
+		//green
+		r = 0;
+		g = 255;
+		b = 0;
+	}
+	if (count < delim * 2)
+	{
+		//blue
+		r = 0;
+		g = 0;
+		b = 255;
+	}
+	if (count < delim)
+	{
+		//purple (magenta but whatevs)
+		r = 255;
+		g = 0;
+		b = 255;
 	}
 }
 

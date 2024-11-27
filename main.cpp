@@ -6,16 +6,20 @@ int main()
 	cout << "when the project compiles :D" << endl;
 	cout << ">:)" << endl;
 
-	VideoMode video(500, 400);
+	VideoMode video(1920,1080);
 	int screenH = video.getDesktopMode().height;
 	int screenW = video.getDesktopMode().width;
 
 	RenderWindow window(video, "Mandelbrot set");
-	CircleShape cir(100.f);
-	cir.setFillColor(sf::Color::Blue);
-	ComplexPlane cPlane(500, 400);
+	ComplexPlane cPlane(1920,1080);
 	RenderStates state;
 
+	Font font;
+	font.loadFromFile("ComicSansMS.ttf");
+	Text text;
+	text.setFont(font);
+	text.setColor(Color::White);
+	text.setCharacterSize(25);
 
 	while (window.isOpen())
 	{
@@ -26,33 +30,38 @@ int main()
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape)) { window.close(); }
 
-			if (event.mouseButton.button == Mouse::Left)
+			if (event.type == sf::Event::MouseButtonPressed)
 			{
-				cout << "LEFT CLICK" << endl;
-				cPlane.setCenter({event.mouseButton.x, event.mouseButton.y });
-				cPlane.zoomIn();
-			}
-			if (event.mouseButton.button == Mouse::Right)
-			{
-				cout << "!(LEFT CLICK)" << endl;
-				cPlane.setCenter({event.mouseButton.x, event.mouseButton.y});
-				cPlane.zoomOut();
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					cout << "left click" << endl;
+					cPlane.setCenter({ event.mouseButton.x, event.mouseButton.y });
+					cPlane.zoomIn();
+				}
+				if (event.mouseButton.button == sf::Mouse::Right)
+				{
+					cout << "right click" << endl;
+					cPlane.setCenter({ event.mouseButton.x, event.mouseButton.y });
+					cPlane.zoomOut();
+				}
 			}
 			if (event.MouseMoved)
 			{
-				cout << "moved" << endl;
+				cPlane.setMouseLocation(Vector2i(event.mouseButton.x, event.mouseButton.y));
 			}
 		}
 
 		///YUPDATE
 
-		cPlane.updateRender();
-		//jeremy.loadText (WHEN DONE)
+		thread t1(&ComplexPlane::updateRender, &cPlane);
+		//cPlane.updateRender();
+		t1.join();
+		cPlane.loadText(text);
 
 		///DRAWER
 		window.clear();
 		cPlane.draw(window, state);
-		//window.draw(TEXTS);
+		window.draw(text);
 		window.display();
 
 
