@@ -13,7 +13,7 @@ int main()
 	RenderWindow window(VideoMode(screenW, screenH), "opened");
 	CircleShape cir(100.f);
 	cir.setFillColor(sf::Color::Blue);
-	ComplexPlane jeremy(screenW, screenH);
+	///ComplexPlane cPlane(screenW, screenH);
 
 
 	while (window.isOpen())
