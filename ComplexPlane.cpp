@@ -137,9 +137,16 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 		g = 0;
 		b = 255;
 	}
+	if(count < delim * 1.25)
+	{
+		//purple
+		r = 127;
+		g = 0;
+		b = 255;
+	}
 	if (count < delim)
 	{
-		//purple (magenta but whatevs)
+		//magenta
 		r = 255;
 		g = 0;
 		b = 255;
