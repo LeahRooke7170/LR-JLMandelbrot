@@ -101,11 +101,10 @@ void ComplexPlane::updateRender()
 				m_vArray[j + i * pixelWidth].position = { float(j), float(i) };
 				coord = mapPixelToCoords({ j,i });
 				iterCount = countIterations(coord);
-				//cout << iterCount << endl;
 				Uint8 r, g, b;
 				iterationsToRGB(iterCount, r, g, b);
 				m_vArray[j + i * pixelWidth].color = { r,g,b };
-				//cout << m_vArray[j + i * pixelWidth].position.x << " " << m_vArray[j + i * pixelWidth].position.y << endl;
+				cout << m_vArray[j + i * pixelWidth].position.x << " " << m_vArray[j + i * pixelWidth].position.y << endl;
 			}
 			m_state = DISPLAYING;
 		}
@@ -126,15 +125,16 @@ int ComplexPlane::countIterations(Vector2f coord)
 	}
 	cout << iterations << endl;
 	return iterations;*/
-	complex<double> c = complex<double>(coord.x, coord.y);
+	complex<float> c = complex<float>(coord.x, coord.y);
 	int iterations = 0;
-	for (complex<double> z; abs(z) <= 2 && iterations < MAX_ITER; ++iterations)
+	for (complex<float> z; abs(z) <= 2 && iterations < MAX_ITER; ++iterations)
 		z = z * z + c;
 	return iterations;
 }
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
+	cout << count << endl;
 	if (count == MAX_ITER)
 	{
 		r = 0;
@@ -166,7 +166,7 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 		g = 0;
 		b = MAX_ITER;
 	}
-	if (count == 0)
+	if (count == 0 || count == 1)
 	{
 		r = 255;
 		g = 0;
@@ -188,7 +188,7 @@ Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
 	//Vector2f c = { (m_plane_center.x - (m_plane_size.x / 2.0)),(m_plane_center.y - (m_plane_size.y / 2.0)) };
 	//Vector2f d = { (m_plane_center.x + (m_plane_size.x / 2.0)),(m_plane_center.y + (m_plane_size.y / 2.0)) };
 	//[0, width] -> [m_plane_center.x - m_plane_size.x / 2.0, m_plane_size.x]
-	float rx = ((mousePixel.x - a.x) / (b.x - a.x)) * ((m_plane_center.x + (m_plane_size.x / 2.0)) - (m_plane_center.x - (m_plane_size.x / 2.0)) + (m_plane_center.x - (m_plane_size.x / 2.0)));
+	float rx = ((mousePixel.x) / (m_pixel_size.x)) * (m_plane_size.x - (m_plane_center.x - (m_plane_size.x / 2.0))) + (m_plane_center.x - (m_plane_size.x / 2.0));
 	//[0, height] -> [m_plane_center.y - m_plane_size.y / 2.0, m_plane_size.y]
 	float ry = ((mousePixel.y - a.y) / (b.y - a.y)) * ((m_plane_center.y + (m_plane_size.y / 2.0)) - (m_plane_center.y - (m_plane_size.y / 2.0)) + (m_plane_center.y - (m_plane_size.y / 2.0)));
 	
