@@ -13,6 +13,8 @@ int main()
 	RenderWindow window(VideoMode(screenW, screenH), "opened");
 	CircleShape cir(100.f);
 	cir.setFillColor(sf::Color::Blue);
+	ComplexPlane jeremy(screenW, screenH);
+
 
 	while (window.isOpen())
 	{
@@ -22,11 +24,20 @@ int main()
 			if (event.type == Event::Closed) { window.close(); }
 
 			if (Keyboard::isKeyPressed(Keyboard::Escape)) { window.close(); }
+
+			if (event.mouseButton.button == Mouse::Left)
+			{
+				cout << "LEFT CLICK" << endl;
+			}
+			if (event.mouseButton.button == Mouse::Right)
+			{
+				cout << "!(LEFT CLICK)" << endl;
+			}
 		}
 
 
 		window.clear();
-		window.draw(cir);
+	
 		window.display();
 
 
