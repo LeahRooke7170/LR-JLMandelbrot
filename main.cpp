@@ -14,6 +14,7 @@ int main()
 	CircleShape cir(100.f);
 	cir.setFillColor(sf::Color::Blue);
 	ComplexPlane cPlane(screenW, screenH);
+	RenderStates state;
 
 
 	while (window.isOpen())
@@ -28,10 +29,12 @@ int main()
 			if (event.mouseButton.button == Mouse::Left)
 			{
 				cout << "LEFT CLICK" << endl;
+				cPlane.zoomIn();
 			}
 			if (event.mouseButton.button == Mouse::Right)
 			{
 				cout << "!(LEFT CLICK)" << endl;
+				cPlane.zoomOut();
 			}
 			if (event.MouseMoved)
 			{
@@ -46,7 +49,7 @@ int main()
 
 		///DRAWER
 		window.clear();
-		//cPlane.draw(window);
+		cPlane.draw(window, state);
 		//window.draw(TEXTS);
 		window.display();
 
