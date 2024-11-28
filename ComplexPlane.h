@@ -8,6 +8,7 @@
 #include <vector>
 #include <sstream>
 #include <thread>
+#include <iomanip>
 
 using namespace sf;
 using namespace std;

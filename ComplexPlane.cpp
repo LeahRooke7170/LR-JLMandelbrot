@@ -50,7 +50,7 @@ void ComplexPlane::setMouseLocation(Vector2i mousePixel)
 void ComplexPlane::loadText(Text& text)
 {
 	stringstream ss; 
-	ss << "Mandelbrot Set!!!!\n"
+	ss << fixed << setprecision(3) << "Mandelbrot Set!!!!\n"
 		<< "Center: (" << m_plane_center.x << ", " << m_plane_center.y << ")\n"
 		<< "Cursor: (" << m_mouseLocation.x << ", " << m_mouseLocation.y << ")\n"
 		<< "Left-click to zoom in\n"
@@ -102,7 +102,7 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 		g = 0;
 		b = 0;
 	}
-	if (count < delim * 6 - 1)
+	if (count < delim * 6 - .01)
 	{
 		//red
 		r = 255;

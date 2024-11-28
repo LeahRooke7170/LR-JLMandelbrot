@@ -1,6 +1,6 @@
 #include"ComplexPlane.h"
 
-
+//Final version
 int main()
 {
 	VideoMode video(1920,1080);
@@ -44,10 +44,12 @@ int main()
 			}
 			if (event.MouseMoved)
 			{
-				cPlane.setMouseLocation(Vector2i(event.mouseButton.x, event.mouseButton.y));
+				cPlane.setMouseLocation({ event.mouseMove.x, event.mouseMove.y });
 			}
 		}
+
 		thread t1(&ComplexPlane::updateRender, &cPlane);
+
 		t1.join();
 		cPlane.loadText(text);
 
